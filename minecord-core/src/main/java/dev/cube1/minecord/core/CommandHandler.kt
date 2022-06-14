@@ -1,8 +1,8 @@
-package dev.cube1.minecord
+package dev.cube1.minecord.core
 
-import dev.cube1.minecord.commands.MinecordInfo
-import dev.cube1.minecord.commands.OnlineCommand
-import dev.cube1.minecord.commands.Ping
+import dev.cube1.minecord.core.commands.MinecordInfo
+import dev.cube1.minecord.core.commands.OnlineCommand
+import dev.cube1.minecord.core.commands.Ping
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent

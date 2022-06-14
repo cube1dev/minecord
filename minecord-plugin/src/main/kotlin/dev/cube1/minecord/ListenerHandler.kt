@@ -1,42 +1,16 @@
 package dev.cube1.minecord
 
-import dev.cube1.minecord.utils.FormatModule
+import dev.cube1.minecord.core.utils.FormatModule
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.dv8tion.jda.api.EmbedBuilder
-import net.dv8tion.jda.api.entities.ChannelType
 import net.dv8tion.jda.api.entities.MessageEmbed
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent
-import net.dv8tion.jda.api.hooks.ListenerAdapter
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
-import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.*
 
-object ListenerHandler : ListenerAdapter(), Listener {
-
-    override fun onMessageReceived(event: MessageReceivedEvent) {
-        if (event.author.isBot) return
-        if (event.channelType == ChannelType.PRIVATE) return
-        if (event.channel.id == instance.config.getString("channel_id")) {
-            val format: String = instance.config.getString("message_format")
-                ?: "<<dark_purple><sender><reset>> <message>"
-            val customColor: Boolean = instance.config.getBoolean("custom_color")
-            val supportMarkdown: Boolean = instance.config.getBoolean("support_markdown")
-            val formatModule = FormatModule()
-            val msg = MiniMessage.miniMessage().deserialize(formatModule.replaceChatFormat(
-                event,
-                format,
-                supportMarkdown,
-                customColor
-            ))
-            Bukkit.broadcast(msg)
-        }
-    }
+object ListenerHandler : Listener {
 
     @EventHandler
     fun onChat(event: AsyncChatEvent) {

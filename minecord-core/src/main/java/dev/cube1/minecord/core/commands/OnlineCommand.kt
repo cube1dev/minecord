@@ -1,13 +1,13 @@
-package dev.cube1.minecord.commands
+package dev.cube1.minecord.core.commands
 
-import dev.cube1.minecord.CommandHandler
+import dev.cube1.minecord.core.CommandHandler
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.MessageEmbed
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import net.dv8tion.jda.internal.interactions.CommandDataImpl
 import org.bukkit.Bukkit
-import dev.cube1.minecord.instance
+import dev.cube1.minecord.core.instance
 
 object OnlineCommand: CommandHandler {
 

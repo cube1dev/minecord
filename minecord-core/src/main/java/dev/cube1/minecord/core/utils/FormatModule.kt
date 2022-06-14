@@ -1,4 +1,4 @@
-package dev.cube1.minecord.utils
+package dev.cube1.minecord.core.utils
 
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
