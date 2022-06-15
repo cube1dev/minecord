@@ -1,6 +1,6 @@
 package dev.cube1.minecord.core.listeners
 
-import dev.cube1.minecord.core.instance
+import dev.cube1.minecord.core.*
 import dev.cube1.minecord.core.utils.FormatModule
 import net.dv8tion.jda.api.entities.ChannelType
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -13,7 +13,7 @@ class MessageReceived : ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.author.isBot) return
         if (event.channelType == ChannelType.PRIVATE) return
-        if (event.channel.id == instance.config.getString("channel_id")) {
+        if (event.channel.id == targetChannel?.id) {
             val format: String = instance.config.getString("message_format")
                 ?: "<<dark_purple><sender><reset>> <message>"
             val customColor: Boolean = instance.config.getBoolean("custom_color")

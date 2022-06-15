@@ -1,5 +1,6 @@
 package dev.cube1.minecord
 
+import dev.cube1.minecord.core.inviteUrl
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.command.Command
@@ -14,7 +15,7 @@ object CommandDispatcher : CommandExecutor, TabCompleter {
 
         when (args.size) {
             0 -> {
-                sender.sendMessage("디스코드 주소: ${instance.config.getString("invite_url")}")
+                sender.sendMessage("디스코드 주소: $inviteUrl")
                     return true
                 }
 
@@ -27,7 +28,7 @@ object CommandDispatcher : CommandExecutor, TabCompleter {
                         return false
                     }
 
-                    instance.config.set("invite_url", url)
+                    inviteUrl = url
                     sender.sendMessage(Component.text("디스코드 주소가 설정 되었습니다: ", NamedTextColor.GREEN)
                         .append(Component.text(url, NamedTextColor.WHITE)))
 

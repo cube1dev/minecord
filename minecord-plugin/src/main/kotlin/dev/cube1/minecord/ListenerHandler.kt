@@ -1,5 +1,7 @@
 package dev.cube1.minecord
 
+import dev.cube1.minecord.core.jda
+import dev.cube1.minecord.core.targetChannel
 import dev.cube1.minecord.core.utils.FormatModule
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.dv8tion.jda.api.EmbedBuilder
@@ -15,17 +17,15 @@ object ListenerHandler : Listener {
     @EventHandler
     fun onChat(event: AsyncChatEvent) {
         val formatModule = FormatModule()
-        val channel = jda.getTextChannelById(instance.config.getString("channel_id")!!)
-        val format: String = instance.config.getString("chat_format") ?: "**<player>**: <message>"
+        val format: String = instance.config.getString("discord_chat_format") ?: "**<player>**: <message>"
 
-        channel?.sendMessage(formatModule.replaceMsgFormat(event, format))?.queue()
+        targetChannel?.sendMessage(formatModule.replaceMsgFormat(event, format))?.queue()
     }
 
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         if (!instance.config.getBoolean("access_enable")) return
         val formatModule = FormatModule()
-        val channel = jda.getTextChannelById(instance.config.getString("channel_id")!!)
         val format: String = instance.config.getString("joinFormat")?:
         "**<player>**님이 게임에 들어왔습니다. 현재 플레이어 수: <online>/<max>명"
 
@@ -41,9 +41,9 @@ object ListenerHandler : Listener {
             }
 
             val embed: MessageEmbed = builder.build()
-            channel?.sendMessageEmbeds(embed)?.queue()
+            targetChannel?.sendMessageEmbeds(embed)?.queue()
         } else {
-            channel?.sendMessage(formatModule.replaceAccessFormat(event, format, false))?.queue()
+            targetChannel?.sendMessage(formatModule.replaceAccessFormat(event, format, false))?.queue()
         }
     }
 
@@ -108,7 +108,6 @@ object ListenerHandler : Listener {
     fun onPlayerKick(event: PlayerKickEvent) {
         if (!instance.config.getBoolean("kick_enable")) return
         val formatModule = FormatModule()
-        val channel = jda.getTextChannelById(instance.config.getString("channel_id")!!)
         val format: String = instance.config.getString("kickFormat")
             ?: "**<player>님이 추방 되었습니다.**"
 
@@ -127,9 +126,9 @@ object ListenerHandler : Listener {
             }
 
             val embed: MessageEmbed = builder.build()
-            channel?.sendMessageEmbeds(embed)?.queue()
+            targetChannel?.sendMessageEmbeds(embed)?.queue()
         } else {
-            channel?.sendMessage(formatModule.replaceAccessFormat(event, format, true))?.queue()
+            targetChannel?.sendMessage(formatModule.replaceAccessFormat(event, format, true))?.queue()
         }
     }
 
@@ -137,9 +136,8 @@ object ListenerHandler : Listener {
     fun onQuit(event: PlayerQuitEvent) {
         if (!instance.config.getBoolean("access_enable")) return
         val formatModule = FormatModule()
-        val channel = jda.getTextChannelById(instance.config.getString("channel_id")!!)
-        val format: String = instance.config.getString("leave_format")?:
-        "**<player>**님이 게임에서 나갔습니다. 현재 플레이어 수: <online>/<max>명"
+        val format: String = instance.config.getString("leave_format")
+            ?: "**<player>**님이 게임에서 나갔습니다. 현재 플레이어 수: <online>/<max>명"
 
         if (instance.config.getBoolean("leave_embed")) {
             val title: String? = instance.config.getString("leave_embed_title")
@@ -156,9 +154,9 @@ object ListenerHandler : Listener {
             }
 
             val embed: MessageEmbed = builder.build()
-            channel?.sendMessageEmbeds(embed)?.queue()
+            targetChannel?.sendMessageEmbeds(embed)?.queue()
         } else {
-            channel?.sendMessage(formatModule.replaceAccessFormat(event, format, true))?.queue()
+            targetChannel?.sendMessage(formatModule.replaceAccessFormat(event, format, true))?.queue()
         }
     }
 }

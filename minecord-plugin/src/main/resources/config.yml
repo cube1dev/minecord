@@ -28,7 +28,7 @@ embed_field_2: "목록:"
 start_message: ":white_check_mark: **서버가 시작 되었습니다.**"
 stop_message: ":stop_sign: **서버가 종료 되었습니다.**"
 
-chat_format: "**<player>**: <message>"
+discord_chat_format: "**<player>**: <message>"
 chat_embed_color: 0x0070ff
 chat_embed_title: "**온라인 유저**"
 

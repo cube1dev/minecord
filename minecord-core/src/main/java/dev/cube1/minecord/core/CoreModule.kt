@@ -9,14 +9,28 @@ import org.bukkit.plugin.java.JavaPlugin
 lateinit var jda: JDA
 lateinit var instance: JavaPlugin
 
+private val token = instance.config.getString("token").toString()
+
+val guildId = instance.config.getString("guild_id").toString()
+val targetChannel = jda.getTextChannelById(
+    instance.config.getString("channel_id").toString()
+)
+
+var inviteUrl: String
+    get() = instance.config.getString("invite_url").toString()
+    set(value) = instance.config.set("invite_url", value)
+
+val showActivity = instance.config.getBoolean("show_activity")
+val serverAddress = instance.config.getString("server_address").toString()
+
 fun jdaInit() {
-    val builder = JDABuilder.createDefault(instance.config.getString("token")).apply {
+    val builder = JDABuilder.createDefault(token).apply {
         registerEvents(this)
         addEventListeners(MessageReceived())
     }
 
-    if (instance.config.getBoolean("show_activity")) {
-        builder.setActivity(Activity.playing("Minecraft : ${instance.config.getString("server_address")}"))
+    if (showActivity) {
+        builder.setActivity(Activity.playing("Minecraft : $serverAddress"))
     }
 
     jda = builder.build()
